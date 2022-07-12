@@ -1,0 +1,12 @@
+name: MyProject
+options:
+  bundleIdPrefix: com.myapp
+packages:
+  Stencil:
+    url: "https://github.com/stencilproject/Stencil.git"
+    from: 0.14.1
+targets:
+  SpencilTry:
+    type: application
+    platform: macOS
+    sources: [Sources, templates, Tests, Package.swift, README.MD]

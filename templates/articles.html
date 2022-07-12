@@ -1,0 +1,11 @@
+import Foundation
+
+
+{% for article in articles %}
+func {{article.title}}(){
+	print("{{article.author}}")
+}
+
+{% endfor %}
+
+
