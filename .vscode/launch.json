@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug SpencilTry",
+            "program": ".build/debug/SpencilTry",
+            "args": [],
+            "cwd": "${workspaceFolder:gena}",
+            "preLaunchTask": "swift: Build Debug SpencilTry"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Release SpencilTry",
+            "program": ".build/release/SpencilTry",
+            "args": [],
+            "cwd": "${workspaceFolder:gena}",
+            "preLaunchTask": "swift: Build Release SpencilTry"
+        }
+    ]
+}

@@ -4,18 +4,19 @@
 import PackageDescription
 
 let package = Package(
-    name: "SpencilTry",
+    name: "{{name}}",
     dependencies: [
-	.package(url: "https://github.com/stencilproject/Stencil.git", from: "0.14.1"),
+	{% for package in packages %}
+{{package.packUrl}}
+    {% endfor %}
     ],
     targets: [
         .executableTarget(
-            name: "SpencilTry",
+            name: "{{name}}",
             dependencies: [
-		"Stencil"
-	]),
-        .testTarget(
-            name: "SpencilTryTests",
-            dependencies: ["SpencilTry"]),
+    {% for package in packages %}
+    "{{package.packName}}",
+    {% endfor %}
+	])
     ]
 )

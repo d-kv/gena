@@ -1,0 +1,11 @@
+import Foundation
+
+class {{name}} {
+{% for class in classes %}
+func {{class.funcName}}({{class.funcArgument}}){
+	print("{{class.funcName}}{{class.funcArgument}}")
+}
+
+{% endfor %}
+}
+
