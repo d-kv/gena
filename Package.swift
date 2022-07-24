@@ -6,16 +6,18 @@ import PackageDescription
 let package = Package(
     name: "SpencilTry",
     dependencies: [
-	.package(url: "https://github.com/stencilproject/Stencil.git", from: "0.14.1"),
+        .package(url: "https://github.com/stencilproject/Stencil.git", from: "0.14.1"),
     ],
     targets: [
         .executableTarget(
             name: "SpencilTry",
             dependencies: [
-		"Stencil"
-	]),
+                "Stencil",
+            ]
+        ),
         .testTarget(
             name: "SpencilTryTests",
-            dependencies: ["SpencilTry"]),
+            dependencies: ["SpencilTry"]
+        ),
     ]
 )

@@ -1,0 +1,5 @@
+target '{{name}}' do
+    {% for package in packages %}
+    {{package.packUrl}}
+    {% endfor %}
+end

@@ -1,7 +1,7 @@
 import Foundation
 
 class FileCreator {
-    func createFile(name: String, type: String, path: URL?, data: String){
+    func createFile(name: String, type: String, path: URL?, data: String) {
         guard let fileURL = path?.appendingPathComponent(name).appendingPathExtension(type) else {
             fatalError("Not able to create URL")
         }
@@ -12,19 +12,14 @@ class FileCreator {
         } catch {
             assertionFailure("Failed writing to URL: \(fileURL), Error: " + error.localizedDescription)
         }
-
     }
 
-    func createFolder(name: String, path: String){
+    func createFolder(name: String, path: String) {
         let manager = FileManager()
-        do
-        {
+        do {
             try manager.createDirectory(atPath: path + name, withIntermediateDirectories: true)
-        }
-        catch let error as NSError
-        {
+        } catch let error as NSError {
             print("Error while creating a folder.")
         }
-            }
-
+    }
 }
