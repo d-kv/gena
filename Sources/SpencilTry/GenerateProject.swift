@@ -9,29 +9,33 @@ struct GenerateProject: ParsableCommand {
     var projectName: String
     @Argument(help: "Dependensies manager (spm - 1, cocoapods - 2)")
     var projectType: Int
-    @Argument(help: "Number of classes in the project")
-    var classes: Int
-    @Argument(help: "Number of structs in the project")
-    var structs: Int
+    @Option(help: "Number of classes in the project")
+    var classes = 0
+    @Option(help: "Number of function in classes(default 10)")
+    var classesFunc = 10
+    @Option(help: "Number of structs in the project")
+    var structs = 0
+    @Option(help: "Number of function in structs(default 10)")
+    var structsFunc = 10
 
     mutating func run() throws {
         let _ = try ProjectCreator(name: projectName,
-                                    username: userName,
-                                    manager: projectType)
+                                   username: userName,
+                                   manager: projectType)
         let lol_ = FileCreator()
 
-        for i in 0 ... (classes) {
+        for i in 0 ..< classes {
             lol_.createFile(name: "Class_" + String(i),
                             type: "swift",
                             path: URL(string: "file:///home/\(userName)/\(projectName)/Sources/\(projectName)/Classes/"),
-                            data: try ClassCreator(count: classes, number: i, template: "class_template.html", name: "CLASS_").fileTemplate)
+                            data: try ClassCreator(countFunc: classesFunc, number: i, template: "class_template.html", name: "CLASS_").fileTemplate)
         }
 
-        for i in 0 ... (structs) {
+        for i in 0 ..< structs {
             lol_.createFile(name: "Struct_" + String(i),
                             type: "swift",
                             path: URL(string: "file:///home/\(userName)/\(projectName)/Sources/\(projectName)/Structs/"),
-                            data: try ClassCreator(count: structs, number: i, template: "struct_template.html", name: "STRUCT_").fileTemplate)
+                            data: try ClassCreator(countFunc: structsFunc, number: i, template: "struct_template.html", name: "STRUCT_").fileTemplate)
         }
         print("success")
     }
@@ -74,8 +78,6 @@ struct GenerateProject: ParsableCommand {
 //                     path: URL(string: "file:///home/\(userName ?? "lexar")/\(projectName ?? "Project")/Sources/\(projectName ?? "Project")/Structs/"),
 //                     data: try ClassCreator(count: sc ?? 0, number: i, template: "struct_template.html", name: "STRUCT_").fileTemplate)
 // }
-
-
 
 // project struct
 /*

@@ -15,8 +15,8 @@ struct Class {
 class ClassCreator {
     var fileTemplate: String
 
-    init(count: Int, number: Int, template: String, name: String) throws {
-        let context: [String: Any] = ["classes": returnClassNames(count: count),
+    init(countFunc: Int, number: Int, template: String, name: String) throws {
+        let context: [String: Any] = ["classes": returnClassNames(count: countFunc),
                                       "name": name + String(number)]
         let environment = Environment(loader: FileSystemLoader(paths: ["templates/"]))
         let rendered = try environment.renderTemplate(name: template, context: context)
@@ -32,7 +32,7 @@ class ClassCreator {
 
 func returnClassNames(count: Int) -> [Class] {
     var classes: [Class] = []
-    for i in 0 ... count {
+    for i in 0 ..< count {
         classes.append(Class(funcName: randName(num: i), funcArgument: randArgument()))
     }
     return classes

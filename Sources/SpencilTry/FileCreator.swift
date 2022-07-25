@@ -18,7 +18,7 @@ class FileCreator {
         let manager = FileManager()
         do {
             try manager.createDirectory(atPath: path + name, withIntermediateDirectories: true)
-        } catch let error as NSError {
+        } catch _ as NSError {
             print("Error while creating a folder.")
         }
     }

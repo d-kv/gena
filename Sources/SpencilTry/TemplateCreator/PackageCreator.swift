@@ -30,6 +30,24 @@ class PackageCreator {
     }
 }
 
-func returnPackNames(count _: Int, pack_system _: Int) -> [Pack] {
-    []
+func returnPackNames(count: Int, pack_system: Int) -> [Pack] {
+    let all_frameworks = [["Alamofire", "pod 'Alamofire'", ".Package(url: \"https://github.com/Alamofire/Alamofire.git\", branch: \"master\")"],
+                          [""]]
+    var result: [Pack] = []
+    switch pack_system {
+    case 1:
+        for i in 0 ..< count {
+            let a = Pack(packName: all_frameworks[i][1], packUrl: all_frameworks[i][3])
+            result.append(a)
+        }
+    case 2:
+        for i in 0 ..< count {
+            let a = Pack(packName: all_frameworks[i][1], packUrl: all_frameworks[i][2])
+            result.append(a)
+        }
+    default: break
+    }
+    return result
 }
+
+// .Package(url: "https://github.com/Alamofire/Alamofire.git", branch: "master") Alamofire pod 'Alamofire'
