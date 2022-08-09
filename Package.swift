@@ -23,3 +23,8 @@ let package = Package(
         ),
     ]
 )
+// .executableTarget(
+//             name: "proj",
+//             dependencies: [],
+//             path: "Sources"
+//         ),
