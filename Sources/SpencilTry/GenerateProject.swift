@@ -2,10 +2,6 @@ import ArgumentParser
 import Foundation
 import Stencil
 
-// в текущей директории
-// yaml с конфигом
-// завести модульность
-// сгенерировать какое-то количество модулей, программа максимум граф - уложить граф в заданные параметры
 @main
 struct GenerateProject: ParsableCommand {
     @Argument(help: "Your current user name")
@@ -45,14 +41,14 @@ struct GenerateProject: ParsableCommand {
         for i in 0 ..< classes {
             lol_.createFile(name: "Class_\(projectName)" + String(i),
                             type: "swift",
-                            path: URL(string: "file:///home/\(userName)/\(projectName)/Sources/\(projectName)/Classes/"),
+                            path: URL(string: "file:///tmp/gena/\(projectName)/Sources/\(projectName)/Classes/"),
                             data: try ClassCreator(countFunc: classesFunc, number: i, template: "class_template.html", name: "CLASS_\(projectName)").fileTemplate)
         }
 
         for i in 0 ..< structs {
             lol_.createFile(name: "Struct_\(projectName)" + String(i),
                             type: "swift",
-                            path: URL(string: "file:///home/\(userName)/\(projectName)/Sources/\(projectName)/Structs/"),
+                            path: URL(string: "file:///tmp/gena/\(projectName)/Sources/\(projectName)/Structs/"),
                             data: try ClassCreator(countFunc: structsFunc, number: i, template: "struct_template.html", name: "STRUCT_\(projectName)").fileTemplate)
         }
 
@@ -66,14 +62,14 @@ struct GenerateProject: ParsableCommand {
             for i in 0 ..< targetClasses {
                 lol_.createFile(name: "Class_\("Target" + String(q))" + String(i),
                                 type: "swift",
-                                path: URL(string: "file:///home/\(userName)/\(projectName)/Sources/\("Target" + String(q))/Sources/\("Target" + String(q))/Classes/"),
+                                path: URL(string: "file:///tmp/gena/\(projectName)/Sources/\("Target" + String(q))/Sources/\("Target" + String(q))/Classes/"),
                                 data: try ClassCreator(countFunc: targetClassesFunc, number: i, template: "class_template.html", name: "CLASS_\("Target" + String(q) + String(i))").fileTemplate)
             }
 
             for i in 0 ..< targetStructs {
                 lol_.createFile(name: "Struct_\("Target" + String(q))" + String(i),
                                 type: "swift",
-                                path: URL(string: "file:///home/\(userName)/\(projectName)/Sources/\("Target" + String(q))/Sources/\("Target" + String(q))/Structs/"),
+                                path: URL(string: "file:///tmp/gena/\(projectName)/Sources/\("Target" + String(q))/Sources/\("Target" + String(q))/Structs/"),
                                 data: try ClassCreator(countFunc: targetStructsFunc, number: i, template: "struct_template.html", name: "STRUCT_\("Target" + String(q) + String(i))").fileTemplate)
             }
         }

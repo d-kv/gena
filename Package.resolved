@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/stencilproject/Stencil.git",
         "state": {
           "branch": null,
-          "revision": "ccd9402682f4c07dac9561befd207c8156e80e20",
-          "version": "0.14.2"
+          "revision": "4f222ac85d673f35df29962fc4c36ccfdaf9da5b",
+          "version": "0.15.1"
         }
       },
       {
@@ -35,6 +35,15 @@
           "branch": null,
           "revision": "df9ee6676cd5b3bf5b330ec7568a5644f547201b",
           "version": "1.1.3"
+        }
+      },
+      {
+        "package": "SwiftCSV",
+        "repositoryURL": "https://github.com/swiftcsv/SwiftCSV.git",
+        "state": {
+          "branch": null,
+          "revision": "048a1d3c2950b9c151ef9364b36f91baadc2c28c",
+          "version": "0.8.0"
         }
       }
     ]

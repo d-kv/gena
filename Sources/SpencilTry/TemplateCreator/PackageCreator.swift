@@ -5,7 +5,8 @@ struct Pack {
     let packName: String
     let packUrl: String
 }
-struct Target{
+
+struct Target {
     let name: String
 }
 
@@ -18,14 +19,14 @@ class PackageCreator {
 
     func podfileCreate(count: Int, name: String) throws {
         let context: [String: Any] = ["packages": returnPackNames(count: count, pack_system: 1),
-                                    
+
                                       "name": name]
         let environment = Environment(loader: FileSystemLoader(paths: ["templates/"]))
         let rendered = try environment.renderTemplate(name: "podfile_template.html", context: context)
         fileTemplate = rendered
     }
 
-    func packageCreate(count: Int, name: String, targetcount: Int ) throws {
+    func packageCreate(count: Int, name: String, targetcount: Int) throws {
         let context: [String: Any] = ["packages": returnPackNames(count: count, pack_system: 2),
                                       "targets": returnTargetsNames(count: targetcount),
                                       "name": name]
@@ -57,10 +58,10 @@ func returnPackNames(count: Int, pack_system: Int) -> [Pack] {
 
 func returnTargetsNames(count: Int) -> [Target] {
     var result: [Target] = []
-    for i in 0..<count{
+    for i in 0 ..< count {
         result.append(Target(name: "Target" + String(i)))
     }
-    
+
     return result
 }
 

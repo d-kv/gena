@@ -10,13 +10,13 @@ class ProjectCreator {
             case 1:
                 try pc.packageCreate(count: 0, name: name, targetcount: son_count)
                 fm.createFile(name: "Package", type: "swift",
-                              path: URL(string: "file:///home/\(username)/\(name)/"),
+                              path: URL(string: "file:///tmp/gena/\(name)/"),
                               data: pc.fileTemplate)
 
             case 2:
                 try pc.podfileCreate(count: 0, name: name)
                 fm.createFile(name: "Podfile", type: "",
-                              path: URL(string: "file:///home/\(username)/\(name)/"),
+                              path: URL(string: "file:///tmp/gena/\(name)/"),
                               data: pc.fileTemplate)
 
             default: break
@@ -27,40 +27,35 @@ class ProjectCreator {
         }
     }
 
-    func commonPart(fm: FileCreator, name: String, username: String) {
+    func commonPart(fm: FileCreator, name: String, username _: String) {
         fm.createFolder(name: name,
-                        path: "/home/\(username)/")
+                        path: "/tmp/gena/")
         fm.createFolder(name: "Sources",
-                        path: "/home/\(username)/\(name)/")
+                        path: "/tmp/gena/\(name)/")
         fm.createFolder(name: name,
-                        path: "/home/\(username)/\(name)/Sources/")
-        fm.createFile(name: "README", type: "md",
-                      path: URL(string: "file:///home/\(username)/\(name)/"),
-                      data: "Readme file")
+                        path: "/tmp/gena/\(name)/Sources/")
         fm.createFile(name: "main",
                       type: "swift",
-                      path: URL(string: "file:///home/\(username)/\(name)/Sources/\(name)"),
+                      path: URL(string: "file:///tmp/gena/\(name)/Sources/\(name)"),
                       data: "print(\"hellowrld\")")
-        fm.createFolder(name: "Structs", path: "/home/\(username)/\(name)/Sources/\(name)/")
-        fm.createFolder(name: "Classes", path: "/home/\(username)/\(name)/Sources/\(name)/")
+        fm.createFolder(name: "Structs", path: "/tmp/gena/\(name)/Sources/\(name)/")
+        fm.createFolder(name: "Classes", path: "/tmp/gena/\(name)/Sources/\(name)/")
     }
 
-    func commonCommonPart(fm: FileCreator, name: String, username: String, fatherName: String) {
+    func commonCommonPart(fm: FileCreator, name: String, username _: String, fatherName: String) {
         fm.createFolder(name: name,
-                        path: "/home/\(username)/\(fatherName)/Sources/")
+                        path: "/tmp/gena/\(fatherName)/Sources/")
         fm.createFolder(name: "Sources",
-                        path: "/home/\(username)/\(fatherName)/Sources/\(name)/")
+                        path: "/tmp/gena/\(fatherName)/Sources/\(name)/")
         fm.createFolder(name: name,
-                        path: "/home/\(username)/\(fatherName)/Sources/\(name)/Sources/")
-        fm.createFile(name: "README", type: "md",
-                      path: URL(string: "file:///home/\(username)/\(fatherName)/Sources/\(name)/"),
-                      data: "Readme file")
+                        path: "/tmp/gena/\(fatherName)/Sources/\(name)/Sources/")
+
         fm.createFile(name: "name",
                       type: "swift",
-                      path: URL(string: "file:///home/\(username)/\(fatherName)/Sources/\(name)/Sources/\(name)"),
+                      path: URL(string: "file:///tmp/gena/\(fatherName)/Sources/\(name)/Sources/\(name)"),
                       data: " ")
-        fm.createFolder(name: "Structs", path: "/home/\(username)/\(fatherName)/Sources/\(name)/Sources/\(name)/")
-        fm.createFolder(name: "Classes", path: "/home/\(username)/\(fatherName)/Sources/\(name)/Sources/\(name)/")
+        fm.createFolder(name: "Structs", path: "/tmp/gena/\(fatherName)/Sources/\(name)/Sources/\(name)/")
+        fm.createFolder(name: "Classes", path: "/tmp/gena/\(fatherName)/Sources/\(name)/Sources/\(name)/")
     }
 }
 

@@ -4,7 +4,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug SpencilTry",
-            "program": ".build/debug/SpencilTry",
+            "program": "${workspaceFolder:gena}/.build/debug/SpencilTry",
             "args": [],
             "cwd": "${workspaceFolder:gena}",
             "preLaunchTask": "swift: Build Debug SpencilTry"
@@ -13,10 +13,28 @@
             "type": "lldb",
             "request": "launch",
             "name": "Release SpencilTry",
-            "program": ".build/release/SpencilTry",
+            "program": "${workspaceFolder:gena}/.build/release/SpencilTry",
             "args": [],
             "cwd": "${workspaceFolder:gena}",
             "preLaunchTask": "swift: Build Release SpencilTry"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug Runner",
+            "program": "${workspaceFolder:gena}/.build/debug/Runner",
+            "args": [],
+            "cwd": "${workspaceFolder:gena}",
+            "preLaunchTask": "swift: Build Debug Runner"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Release Runner",
+            "program": "${workspaceFolder:gena}/.build/release/Runner",
+            "args": [],
+            "cwd": "${workspaceFolder:gena}",
+            "preLaunchTask": "swift: Build Release Runner"
         }
     ]
 }
