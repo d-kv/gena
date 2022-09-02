@@ -15,7 +15,7 @@ let package = Package(
             dependencies: [
                 "SpencilTry",
                 "SwiftCSV",
-                "ArgumentParser",
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
 
             ],
             path: "Sources/Runner"
@@ -24,7 +24,7 @@ let package = Package(
             name: "SpencilTry",
             dependencies: [
                 "Stencil",
-                "ArgumentParser",
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
             path: "Sources/SpencilTry"
         ),
