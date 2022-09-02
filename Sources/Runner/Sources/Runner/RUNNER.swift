@@ -162,9 +162,7 @@ struct GenerateProject: ParsableCommand {
         str.removeLast()
         return [str[7]]
     }
-}
-
-func safeShell(_ command: String) throws -> String {
+    func safeShell(_ command: String) throws -> String {
     let task = Process()
     let pipe = Pipe()
 
@@ -181,6 +179,9 @@ func safeShell(_ command: String) throws -> String {
 
     return output
 }
+}
+
+
 
 class FileCreator {
     func createFile(name: String, type: String, path: URL?, data: String) {
