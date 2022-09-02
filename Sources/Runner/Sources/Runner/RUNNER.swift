@@ -162,24 +162,25 @@ struct GenerateProject: ParsableCommand {
         str.removeLast()
         return [str[7]]
     }
-    
+
+    @available(macOS 11.0, *)
     func safeShell(_ command: String) throws -> String {
-    let task = Process()
-    let pipe = Pipe()
+        let task = Process()
+        let pipe = Pipe()
 
-    task.standardOutput = pipe
-    task.standardError = pipe
-    task.arguments = ["-c", command]
-    task.executableURL = URL(fileURLWithPath: "/bin/bash") // <--updated
-    task.standardInput = nil
+        task.standardOutput = pipe
+        task.standardError = pipe
+        task.arguments = ["-c", command]
+        task.executableURL = URL(fileURLWithPath: "/bin/bash") // <--updated
+        task.standardInput = nil
 
-    try task.run() // <--updated
+        try task.run() // <--updated
 
-    let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    let output = String(data: data, encoding: .utf8)!
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let output = String(data: data, encoding: .utf8)!
 
-    return output
-}
+        return output
+    }
 
 }
 
