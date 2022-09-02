@@ -163,7 +163,6 @@ struct GenerateProject: ParsableCommand {
         return [str[7]]
     }
 
-    @available(macOS 11.0, *)
     func safeShell(_ command: String) throws -> String {
         let task = Process()
         let pipe = Pipe()
