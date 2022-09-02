@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
         "state": {
           "branch": null,
-          "revision": "df9ee6676cd5b3bf5b330ec7568a5644f547201b",
-          "version": "1.1.3"
+          "revision": "9f39744e025c7d377987f30b03770805dcb0bcd1",
+          "version": "1.1.4"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/swiftcsv/SwiftCSV.git",
         "state": {
           "branch": null,
-          "revision": "048a1d3c2950b9c151ef9364b36f91baadc2c28c",
-          "version": "0.8.0"
+          "revision": "96fa14b92e88e0befdbc8bc31c7c2c9594a30060",
+          "version": "0.8.1"
         }
       }
     ]
