@@ -22,11 +22,22 @@ let package = Package(
         {% for target in targets %}
         .target(
             name: "{{target.name}}",
-            dependencies: [],
+            dependencies: [
+                {% for core in coretarget %}
+                "{{core.name}}"
+                {% endfor %}
+            ],
             path: "Sources/{{target.name}}"
         ),
         {% endfor %}
-
+        {% for core in coretarget %}
+        .target(
+            name: "{{core.name}}",
+            dependencies: [
+            ],
+            path: "Sources/{{core.name}}"
+        ),
+        {% endfor %}
     ]
 )
 

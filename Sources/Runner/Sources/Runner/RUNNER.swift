@@ -6,82 +6,161 @@ import SwiftCSV
 struct GenerateProject: ParsableCommand {
     @Argument(help: "Max Targets")
     var maxTargets: Int
-    @Argument(help: "Max Classes in Targets")
-    var maxClassTarget: Int
-    @Argument(help: "Max Classes func in Targets")
-    var maxClassFuncTarget: Int
-    @Argument(help: "Max Structs in Targets")
-    var maxStructsTarget: Int
-    @Argument(help: "Max Structs func in Targets")
-    var maxStructsFuncTarget: Int
-    @Argument(help: "Max Number of classes in the project")
-    var classes = 0
-    @Argument(help: "Max Number of function in classes(default 10)")
-    var classesFunc = 10
-    @Argument(help: "Max Number of structs in the project")
-    var structs = 0
-    @Argument(help: "Max Number of function in structs(default 10)")
-    var structsFunc = 10
+    @Argument(help: "Max func count")
+    var sumfunc: Int
+    @Argument(help: "Max class count")
+    var maxClass: Int
 
+    var output: [[String]] = [["targets", "targets_class", "targets_class_func", "targets_structs",
+                               "targets_structs_func", "projects_class", "project_class_func", "project_structs",
+                               "project_structs_func","timestamp"]]
+    // снять таймстеп
+    // вынести всё это в отдельную функцию
+    // интервал больше( инверсия структур и классов)
+    // весь код по кол-ву таргетов
     mutating func run() throws {
         let lol = FileCreator()
-        var out = "targets,targets_class,targets_class_func,targets_structs,targets_structs_func,projects_class,project_class_func,project_structs,project_structs_func,build_complete,real_time,user_time,sys_time"
-        lol.createFile(name: "results",
+        // var target = 1
+        // let structsum = 2048
+        // for i in 0 ..< 12 {
+        //     do_magic(targets: target - 1,
+        //              classTarget: 0,
+        //              classFuncTarget: 0,
+        //              structsTarget: structsum / target,
+        //              structsFuncTarget: 10,
+        //              classes: 0,
+        //              classesFunc: 0,
+        //              structs: structsum / target,
+        //              structsFunc: 10)
+        //     target *= 2
+        //     print(i)
+        // }
+        // for i in 0 ..< 101 {
+        //     do_magic(targets: 0,
+        //              classTarget: 0,
+        //              classFuncTarget: 0,
+        //              structsTarget: 0,
+        //              structsFuncTarget: 0,
+        //              classes: i,
+        //              classesFunc: 300,
+        //              structs: 100 - i,
+        //              structsFunc: 300)
+        //     print(i)
+        // }
+        // var ans = ""
+        // for i in output {
+        //     ans += i.joined(separator: ",") + "\n"
+        // }
+        // lol.createFile(name: "results",
+        //                type: "csv",
+        //                path: URL(string: "file:///home/lexar"), data: ans)
+
+        // output = [["targets", "targets_class", "targets_class_func", "targets_structs",
+        //                        "targets_structs_func", "projects_class", "project_class_func", "project_structs",
+        //                        "project_structs_func","timestamp"]]
+                       
+        let structsum = 2105
+        for i in 1 ..< 101 {
+            do_magic(targets: i,
+                     classTarget: 0,
+                     classFuncTarget: 0,
+                     structsTarget: (structsum - 105) /  i,
+                     structsFuncTarget: 20,
+                     classes: 0,
+                     classesFunc: 0,
+                     structs: 105,
+                     structsFunc: 20)
+            print(i, "lol")
+        }
+        
+        var ans = ""
+        for i in output {
+            ans += i.joined(separator: ",") + "\n"
+        }
+        lol.createFile(name: "resultsTr20",
                        type: "csv",
-                       path: URL(string: "file:///home/lexar"), data: "")
-        for a in 0 ..< maxTargets {
-            for b in 0 ..< maxClassTarget {
-                for c in 0 ..< maxClassFuncTarget {
-                    for d in 0 ..< maxStructsTarget {
-                        for e in 0 ..< maxStructsFuncTarget {
-                            for f in 0 ..< classes {
-                                for g in 0 ..< classesFunc {
-                                    for h in 0 ..< structs {
-                                        for i in 0 ..< structsFunc {
-                                            do {
-                                                out += "\n\(a),\(b),\(c),\(d),\(e),\(f),\(g),\(h),\(i),"
-                                                print("\n\(a),\(b),\(c),\(d),\(e),\(f),\(g),\(h),\(i),")
-                                                var strSht = ""
-                                                // снять таймстеп 
-                                                //вынести всё это в отдельную функцию
-                                                //интервал больше( инверсия структур и классов)
-                                                //весь код по кол-ву таргетов
-                                                try safeShell("(cd /home/lexar/projects/gena && swift run SpencilTry lexar pop 1 --classes \(f) --classes-func \(g) --structs \(h) --structs-func \(i) --pack-count \(a) --target-classes \(b) --target-classes-func \(c) --target-structs \(d) --target-structs-func \(e))")
-                                                try strSht = safeShell("(cd /tmp/gena/pop && time swift build)")
-                                                try safeShell("(cd /tmp/gena && rm -rf pop)")
+                       path: URL(string: "file:///home/lexar"), data: ans)
 
-                                                if let i = strSht.firstIndex(of: "(") {
-                                                    let index: Int = strSht.distance(from: strSht.startIndex, to: i)
-                                                    strSht.removeFirst(index)
-                                                    strSht.replaceSubrange(strSht.range(of: "(")!, with: "\"")
-                                                    if let i = strSht.firstIndex(of: ")") {
-                                                        strSht.remove(at: i)
-                                                    }
-                                                }
-                                                strSht.replaceSubrange(strSht.range(of: "\n\nreal\t")!, with: "\",\"")
-                                                strSht.replaceSubrange(strSht.range(of: "\nuser\t")!, with: "\",\"")
-                                                strSht.replaceSubrange(strSht.range(of: "\nsys\t")!, with: "\",\"")
-                                                strSht.replaceSubrange(strSht.range(of: "\n")!, with: "\"")
-                                                out += strSht
-                                                // Error Domain=NSPOSIXErrorDomain Code=9 "Bad file descriptor"
-                                                // Error Domain=NSPOSIXErrorDomain Code=9 "Bad file descriptor"
-                                                // Error Domain=NSPOSIXErrorDomain Code=9 "Bad file descriptor"
-                                                // Error Domain=NSPOSIXErrorDomain Code=9 "Bad file descriptor"
-                                                // Error Domain=NSPOSIXErrorDomain Code=9 "Bad file descriptor"
+        output = [["targets", "targets_class", "targets_class_func", "targets_structs",
+                               "targets_structs_func", "projects_class", "project_class_func", "project_structs",
+                               "project_structs_func","timestamp"]]
+        for i in 1 ..< 101 {
+            do_magic(targets: i,
+                     classTarget: 0,
+                     classFuncTarget: 0,
+                     structsTarget: (structsum - 105) /  i,
+                     structsFuncTarget: 50,
+                     classes: 0,
+                     classesFunc: 0,
+                     structs: 105,
+                     structsFunc: 50)
+            print(i, "lol")
+        }
+        
+        ans = ""
+        for i in output {
+            ans += i.joined(separator: ",") + "\n"
+        }
+        lol.createFile(name: "resultsTr50",
+                       type: "csv",
+                       path: URL(string: "file:///home/lexar"), data: ans)
+            output = [["targets", "targets_class", "targets_class_func", "targets_structs",
+                               "targets_structs_func", "projects_class", "project_class_func", "project_structs",
+                               "project_structs_func","timestamp"]]
+        for i in 1 ..< 101 {
+            do_magic(targets: i,
+                     classTarget: 0,
+                     classFuncTarget: 0,
+                     structsTarget: (structsum - 105) /  i,
+                     structsFuncTarget: 100,
+                     classes: 0,
+                     classesFunc: 0,
+                     structs: 105,
+                     structsFunc: 100)
+            print(i, "lol")
+        }
+        
+        ans = ""
+        for i in output {
+            ans += i.joined(separator: ",") + "\n"
+        }
+        lol.createFile(name: "resultsTr100",
+                       type: "csv",
+                       path: URL(string: "file:///home/lexar"), data: ans)
+    }
 
-                                            } catch {
-                                                print("\(error)") // handle or silence the error here
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+    mutating func do_magic(targets: Int, classTarget: Int, classFuncTarget: Int, structsTarget: Int, structsFuncTarget: Int, classes: Int, classesFunc: Int, structs: Int, structsFunc: Int) {
+        do {
+            try safeShell("(cd /home/lexar/projects/gena && swift run SpencilTry lexar pop 1 --classes \(classes) --classes-func \(classesFunc) --structs \(structs) --structs-func \(structsFunc) --pack-count \(targets) --target-classes \(classTarget) --target-classes-func \(classFuncTarget) --target-structs \(structsTarget) --target-structs-func \(structsFuncTarget) )")
+            let anns = [targets, classTarget, classFuncTarget, structsTarget, structsFuncTarget, classes, classesFunc, structs, structsFunc].map(String.init) + parce_ans(strShit: try safeShell("(cd /tmp/gena/pop && ulimit -n 65536 && start=$(date +%s) && time swift build && finish=$(date +%s) && printf \"$start-=$finish\")"))
+            output.append(anns)
+            try print(safeShell("(cd /tmp/gena && rm -rf pop)"))
+        } catch {
+            print("\(error)") // handle or silence the error here
+        }
+    }
+
+    func parce_ans(strShit: String) -> [String] {
+        var strSht = strShit
+        print(strSht)
+        if let i = strSht.firstIndex(of: "(") {
+            let index: Int = strSht.distance(from: strSht.startIndex, to: i)
+            strSht.removeFirst(index)
+            strSht.replaceSubrange(strSht.range(of: "(")!, with: "\"")
+            if let i = strSht.firstIndex(of: ")") {
+                strSht.remove(at: i)
             }
         }
-        try out.write(to: URL(string: "file:///home/lexar/results.csv")!, atomically: true, encoding: .utf8)
+        strSht.replaceSubrange(strSht.range(of: "\n\nreal\t")!, with: "\",\"")
+        strSht.replaceSubrange(strSht.range(of: "\nuser\t")!, with: "\",\"")
+        strSht.replaceSubrange(strSht.range(of: "\nsys\t")!, with: "\",\"")
+        strSht.replaceSubrange(strSht.range(of: "\n")!, with: "\",")
+        strSht.replaceSubrange(strSht.range(of: "-=")!, with: ",")
+        var str = strSht.split(separator: ",").map(String.init)
+        print(str)
+        str[7] = String(Int(str[8])! - Int(str[7])!)
+        str.removeLast()
+        return [str[7]]
     }
 }
 
@@ -126,13 +205,3 @@ class FileCreator {
         }
     }
 }
-
-// Example usage:
-// do {
-// 	try print(safeShell("(cd /home/lexar/projects/gena && swift run SpencilTry lexar pop 1 --classes 10 --classes-func 50 --pack-count 20 --target-classes 10)"))
-//     	try print(safeShell("(cd /tmp/gena/pop && swift build)"))
-
-// }
-// catch {
-//     print("\(error)") //handle or silence the error here
-// }
