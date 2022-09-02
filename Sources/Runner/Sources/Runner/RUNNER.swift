@@ -78,7 +78,7 @@ struct GenerateProject: ParsableCommand {
         }
         lol.createFile(name: "results",
                        type: "csv",
-                       path: URL(string: "file://\(curr_directory)"), data: ans)
+                       path: URL(string: "file:///tmp/gena/"), data: ans)
 
         // output = [["targets", "targets_class", "targets_class_func", "targets_structs",
         //                        "targets_structs_func", "projects_class", "project_class_func", "project_structs",
