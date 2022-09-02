@@ -14,8 +14,12 @@ class ProjectCreator {
                               data: pc.fileTemplate)
 
             case 2:
-                try pc.podfileCreate(count: 0, name: name)
+                try pc.podfileCreate(count: 0, name: name, targetcount: son_count)
                 fm.createFile(name: "Podfile", type: "",
+                              path: URL(string: "file:///tmp/gena/\(name)/"),
+                              data: pc.fileTemplate)
+                try pc.ymlCreate(count: 0, name: name, targetcount: son_count)
+                fm.createFile(name: "project", type: "yml",
                               path: URL(string: "file:///tmp/gena/\(name)/"),
                               data: pc.fileTemplate)
 

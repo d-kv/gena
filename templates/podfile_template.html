@@ -1,5 +1,7 @@
+platform :macos
+
 target '{{name}}' do
-    {% for package in packages %}
-    {{package.packUrl}}
+    {% for target in targets %}
+    pod '{{target.name}}', :path => 'Sources/{{target.name}}'
     {% endfor %}
 end

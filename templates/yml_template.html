@@ -1,0 +1,50 @@
+name: {{name}}
+
+## options section ##
+
+options:
+  bundleIdPrefix: com.{{name}}
+  xcodeVersion: '12.0.1'
+  deploymentTarget: '12.0'
+  groupSortPosition: top
+  generateEmptyDirectories: false
+  minimumXcodeGenVersion: '2.18.0'
+
+
+## targetTemplates section ##
+
+targetTemplates:
+  Framework:
+    type: framework
+    platform: macOS
+    deploymentTarget: 11.0
+    settings:
+      base:
+        MARKETING_VERSION: 1.0
+
+## targets section ##
+        
+targets:
+  {{name}}:
+    type: application
+    platform: macOS
+    deploymentTarget: 11.0
+    settings:
+      base:
+        MARKETING_VERSION: 1.0
+    sources:
+       - path: Sources/{{name}}
+  {% for target in targets %}
+  {{target.name}}:
+    templates: 
+      - Framework
+    sources: 
+      - path: Sources/{{target.name}}
+  {% endfor %}
+  {% for core in coretarget %}
+    {{core.name}}:
+      templates: 
+        - Framework
+      sources: 
+        - path: Sources/{{core.name}}  
+  {% endfor %}
