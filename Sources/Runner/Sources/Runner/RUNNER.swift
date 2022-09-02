@@ -60,7 +60,7 @@ struct GenerateProject: ParsableCommand {
         //                        "project_structs_func","timestamp"]]
                        
         let structsum = 2105
-        for i in 1 ..< 101 {
+        for i in 1 ..< 10 {
             do_magic(targets: i,
                      classTarget: 0,
                      classFuncTarget: 0,
@@ -77,56 +77,56 @@ struct GenerateProject: ParsableCommand {
         for i in output {
             ans += i.joined(separator: ",") + "\n"
         }
-        lol.createFile(name: "resultsTr20",
+        lol.createFile(name: "results",
                        type: "csv",
-                       path: URL(string: "file:///home/lexar"), data: ans)
+                       path: URL(string: "file:///tmp/gena"), data: ans)
 
-        output = [["targets", "targets_class", "targets_class_func", "targets_structs",
-                               "targets_structs_func", "projects_class", "project_class_func", "project_structs",
-                               "project_structs_func","timestamp"]]
-        for i in 1 ..< 101 {
-            do_magic(targets: i,
-                     classTarget: 0,
-                     classFuncTarget: 0,
-                     structsTarget: (structsum - 105) /  i,
-                     structsFuncTarget: 50,
-                     classes: 0,
-                     classesFunc: 0,
-                     structs: 105,
-                     structsFunc: 50)
-            print(i, "lol")
-        }
+        // output = [["targets", "targets_class", "targets_class_func", "targets_structs",
+        //                        "targets_structs_func", "projects_class", "project_class_func", "project_structs",
+        //                        "project_structs_func","timestamp"]]
+        // for i in 1 ..< 101 {
+        //     do_magic(targets: i,
+        //              classTarget: 0,
+        //              classFuncTarget: 0,
+        //              structsTarget: (structsum - 105) /  i,
+        //              structsFuncTarget: 50,
+        //              classes: 0,
+        //              classesFunc: 0,
+        //              structs: 105,
+        //              structsFunc: 50)
+        //     print(i, "lol")
+        // }
         
-        ans = ""
-        for i in output {
-            ans += i.joined(separator: ",") + "\n"
-        }
-        lol.createFile(name: "resultsTr50",
-                       type: "csv",
-                       path: URL(string: "file:///home/lexar"), data: ans)
-            output = [["targets", "targets_class", "targets_class_func", "targets_structs",
-                               "targets_structs_func", "projects_class", "project_class_func", "project_structs",
-                               "project_structs_func","timestamp"]]
-        for i in 1 ..< 101 {
-            do_magic(targets: i,
-                     classTarget: 0,
-                     classFuncTarget: 0,
-                     structsTarget: (structsum - 105) /  i,
-                     structsFuncTarget: 100,
-                     classes: 0,
-                     classesFunc: 0,
-                     structs: 105,
-                     structsFunc: 100)
-            print(i, "lol")
-        }
+        // ans = ""
+        // for i in output {
+        //     ans += i.joined(separator: ",") + "\n"
+        // }
+        // lol.createFile(name: "resultsTr50",
+        //                type: "csv",
+        //                path: URL(string: "file:///home/lexar"), data: ans)
+        //     output = [["targets", "targets_class", "targets_class_func", "targets_structs",
+        //                        "targets_structs_func", "projects_class", "project_class_func", "project_structs",
+        //                        "project_structs_func","timestamp"]]
+        // for i in 1 ..< 101 {
+        //     do_magic(targets: i,
+        //              classTarget: 0,
+        //              classFuncTarget: 0,
+        //              structsTarget: (structsum - 105) /  i,
+        //              structsFuncTarget: 100,
+        //              classes: 0,
+        //              classesFunc: 0,
+        //              structs: 105,
+        //              structsFunc: 100)
+        //     print(i, "lol")
+        // }
         
-        ans = ""
-        for i in output {
-            ans += i.joined(separator: ",") + "\n"
-        }
-        lol.createFile(name: "resultsTr100",
-                       type: "csv",
-                       path: URL(string: "file:///home/lexar"), data: ans)
+        // ans = ""
+        // for i in output {
+        //     ans += i.joined(separator: ",") + "\n"
+        // }
+        // lol.createFile(name: "resultsTr100",
+        //                type: "csv",
+        //                path: URL(string: "file:///home/lexar"), data: ans)
     }
 
     mutating func do_magic(targets: Int, classTarget: Int, classFuncTarget: Int, structsTarget: Int, structsFuncTarget: Int, classes: Int, classesFunc: Int, structs: Int, structsFunc: Int) {
