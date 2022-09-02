@@ -9,14 +9,12 @@ on:
 jobs:
   build:
 
-    runs-on: macos-latest
+    runs-on: macos-10.14
 
     steps:
     - uses: actions/checkout@v3
     - name: Build
       run: swift run Runner 0 0 0
-    - name: Run tests
-      run: swift test -v
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
       with:
@@ -26,7 +24,7 @@ jobs:
         
   ne_build:
     needs: build
-    runs-on: macos-latest
+    runs-on: macos-10.14
     steps:
       - name: download artifact
         uses: actions/download-artifact@v2
@@ -37,5 +35,5 @@ jobs:
         with:
           to: 774506700
           token: 1629447156:AAHtPQWzka0XpErG3VVzlt2FrRkmI3qbwpI
-          message: fuck you
+          message: Results is ready!
           document: results.csv
