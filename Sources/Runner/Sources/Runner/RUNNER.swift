@@ -1,6 +1,5 @@
 import ArgumentParser
 import Foundation
-import SwiftCSV
 
 @main
 struct GenerateProject: ParsableCommand {
