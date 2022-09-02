@@ -58,7 +58,7 @@ struct GenerateProject: ParsableCommand {
         //                        "targets_structs_func", "projects_class", "project_class_func", "project_structs",
         //                        "project_structs_func","timestamp"]]
                        
-        let structsum = 1000
+        let structsum = 500
         for i in 1 ..< 10 {
             do_magic(targets: i,
                      classTarget: 0,
