@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
     name: "SpencilTry",
+    platforms: [
+        .macOS(.v12)
+    ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.0.0"),
         .package(url: "https://github.com/stencilproject/Stencil.git", from: "0.14.1"),
