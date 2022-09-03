@@ -9,7 +9,9 @@ struct GenerateProject: ParsableCommand {
     var sumfunc: Int
     @Argument(help: "Max class count")
     var maxClass: Int
+
     let curr_directory = "/Users/runner/work/gena/"
+
     var output: [[String]] = [["targets", "targets_class", "targets_class_func", "targets_structs",
                                "targets_structs_func", "projects_class", "project_class_func", "project_structs",
                                "project_structs_func","timestamp"]]
@@ -63,7 +65,7 @@ struct GenerateProject: ParsableCommand {
             do_magic(targets: i,
                      classTarget: 0,
                      classFuncTarget: 0,
-                     structsTarget: (structsum - 105) /  i,
+                     structsTarget: (structsum) /  i,
                      structsFuncTarget: 20,
                      classes: 0,
                      classesFunc: 0,
@@ -125,12 +127,12 @@ struct GenerateProject: ParsableCommand {
         // }
         // lol.createFile(name: "resultsTr100",
         //                type: "csv",
-        //                path: URL(string: "file:///home/lexar"), data: ans)
+        //                path: URL(string: "file:///home/lexar"), data: ans)cd \(curr_directory)gena && 
     }
 
     mutating func do_magic(targets: Int, classTarget: Int, classFuncTarget: Int, structsTarget: Int, structsFuncTarget: Int, classes: Int, classesFunc: Int, structs: Int, structsFunc: Int) {
         do {
-            try print(safeShell("(cd \(curr_directory)gena && swift run SpencilTry lexar pop 1 --classes \(classes) --classes-func \(classesFunc) --structs \(structs) --structs-func \(structsFunc) --pack-count \(targets) --target-classes \(classTarget) --target-classes-func \(classFuncTarget) --target-structs \(structsTarget) --target-structs-func \(structsFuncTarget) )"))
+            try print(safeShell("(swift run SpencilTry lexar pop 1 --classes \(classes) --classes-func \(classesFunc) --structs \(structs) --structs-func \(structsFunc) --pack-count \(targets) --target-classes \(classTarget) --target-classes-func \(classFuncTarget) --target-structs \(structsTarget) --target-structs-func \(structsFuncTarget) )"))
             let anns = [targets, classTarget, classFuncTarget, structsTarget, structsFuncTarget, classes, classesFunc, structs, structsFunc].map(String.init) + parce_ans(strShit: try safeShell("(cd /tmp/gena/pop && ulimit -n 65536 && start=$(date +%s) && time swift build && finish=$(date +%s) && printf \"$start-=$finish\")"))
             output.append(anns)
             try print(safeShell("(cd /tmp/gena && rm -rf pop)"))
