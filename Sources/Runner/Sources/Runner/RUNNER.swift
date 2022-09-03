@@ -133,7 +133,7 @@ struct GenerateProject: ParsableCommand {
     mutating func do_magic(targets: Int, classTarget: Int, classFuncTarget: Int, structsTarget: Int, structsFuncTarget: Int, classes: Int, classesFunc: Int, structs: Int, structsFunc: Int) {
         do {
             try print(safeShell("(swift run SpencilTry lexar pop 1 --classes \(classes) --classes-func \(classesFunc) --structs \(structs) --structs-func \(structsFunc) --pack-count \(targets) --target-classes \(classTarget) --target-classes-func \(classFuncTarget) --target-structs \(structsTarget) --target-structs-func \(structsFuncTarget) )"))
-            let anns = [targets, classTarget, classFuncTarget, structsTarget, structsFuncTarget, classes, classesFunc, structs, structsFunc].map(String.init) + parce_ans(strShit: try safeShell("(cd /tmp/gena/pop && ulimit -n 65536 && start=$(date +%s) && time swift build && finish=$(date +%s) && printf \"$start-=$finish\")"))
+            let anns = [targets, classTarget, classFuncTarget, structsTarget, structsFuncTarget, classes, classesFunc, structs, structsFunc].map(String.init) + parce_ans(strShit: try safeShell("(cd /tmp/gena/pop && ulimit -n 65536 && start=$(date +%s) && time swift build && finish=$(date +%s) && printf \"|$start-=$finish|\")"))
             output.append(anns)
             try print(safeShell("(cd /tmp/gena && rm -rf pop)"))
         } catch {
@@ -144,24 +144,19 @@ struct GenerateProject: ParsableCommand {
     func parce_ans(strShit: String) -> [String] {
         var strSht = strShit
         print(strSht)
-        if let i = strSht.firstIndex(of: "(") {
+        if let i = strSht.firstIndex(of: "|") {
             let index: Int = strSht.distance(from: strSht.startIndex, to: i)
             strSht.removeFirst(index)
-            strSht.replaceSubrange(strSht.range(of: "(")!, with: "\"")
-            if let i = strSht.firstIndex(of: ")") {
+            strSht.replaceSubrange(strSht.range(of: "|")!, with: "")
+            if let i = strSht.firstIndex(of: "|") {
                 strSht.remove(at: i)
             }
         }
-        strSht.replaceSubrange(strSht.range(of: "\n\nreal\t")!, with: "\",\"")
-        strSht.replaceSubrange(strSht.range(of: "\nuser\t")!, with: "\",\"")
-        strSht.replaceSubrange(strSht.range(of: "\nsys\t")!, with: "\",\"")
-        strSht.replaceSubrange(strSht.range(of: "\n")!, with: "\",")
         strSht.replaceSubrange(strSht.range(of: "-=")!, with: ",")
         var str = strSht.split(separator: ",").map(String.init)
         print(str)
-        str[7] = String(Int(str[8])! - Int(str[7])!)
-        str.removeLast()
-        return [str[7]]
+        let a = "\"" + String(Int(str[1])! - Int(str[0])!) + "\""
+        return [a]
     }
 
     func safeShell(_ command: String) throws -> String {
