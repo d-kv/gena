@@ -31,9 +31,9 @@ struct GenerateProject: ParsableCommand {
                      classFuncTarget: 0,
                      structsTarget: 0,
                      structsFuncTarget: 0,
-                     classes: i*10,
+                     classes: i,
                      classesFunc: 10,
-                     structs: 1000 - i*10,
+                     structs: 100 - i*1,
                      structsFunc: 10)
             print(i, "lol")
         }
