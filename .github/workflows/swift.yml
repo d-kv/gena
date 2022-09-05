@@ -12,6 +12,8 @@ jobs:
     runs-on: macos-11
 
     steps:
+    - name: 'install xcodegen && cocoa'
+      run: brew install xcodegen && sudo gem install cocoapods 
     - name: 'directory'
       run: pwd
     - uses: actions/checkout@v3
