@@ -19,57 +19,21 @@ struct GenerateProject: ParsableCommand {
     // вынести всё это в отдельную функцию
     // интервал больше( инверсия структур и классов)
     // весь код по кол-ву таргетов
+    //spec.static_framework = true (попробовать и тру и фолсе)
+    // добавить appspec в основную подспеку, добавить для неё appDelegate
+    // 
     mutating func run() throws {
         let lol = FileCreator()
-        // var target = 1
-        // let structsum = 2048
-        // for i in 0 ..< 12 {
-        //     do_magic(targets: target - 1,
-        //              classTarget: 0,
-        //              classFuncTarget: 0,
-        //              structsTarget: structsum / target,
-        //              structsFuncTarget: 10,
-        //              classes: 0,
-        //              classesFunc: 0,
-        //              structs: structsum / target,
-        //              structsFunc: 10)
-        //     target *= 2
-        //     print(i)
-        // }
-        // for i in 0 ..< 101 {
-        //     do_magic(targets: 0,
-        //              classTarget: 0,
-        //              classFuncTarget: 0,
-        //              structsTarget: 0,
-        //              structsFuncTarget: 0,
-        //              classes: i,
-        //              classesFunc: 300,
-        //              structs: 100 - i,
-        //              structsFunc: 300)
-        //     print(i)
-        // }
-        // var ans = ""
-        // for i in output {
-        //     ans += i.joined(separator: ",") + "\n"
-        // }
-        // lol.createFile(name: "results",
-        //                type: "csv",
-        //                path: URL(string: "file:///home/lexar"), data: ans)
-
-        // output = [["targets", "targets_class", "targets_class_func", "targets_structs",
-        //                        "targets_structs_func", "projects_class", "project_class_func", "project_structs",
-        //                        "project_structs_func","timestamp"]]
-                       
-        let structsum = 100
-        for i in 1 ..< 10 {
-            do_magic(targets: i,
+            
+        for i in 1 ..< 100 {
+            do_magic_cocoa(targets: 0,
                      classTarget: 0,
                      classFuncTarget: 0,
-                     structsTarget: (structsum) /  i,
-                     structsFuncTarget: 20,
-                     classes: 0,
-                     classesFunc: 0,
-                     structs: 105,
+                     structsTarget: 0,
+                     structsFuncTarget: 0,
+                     classes: i,
+                     classesFunc: 20,
+                     structs: 100 - i,
                      structsFunc: 20)
             print(i, "lol")
         }
@@ -82,58 +46,24 @@ struct GenerateProject: ParsableCommand {
                        type: "csv",
                        path: URL(string: "file:///tmp/gena/"), data: ans)
 
-        // output = [["targets", "targets_class", "targets_class_func", "targets_structs",
-        //                        "targets_structs_func", "projects_class", "project_class_func", "project_structs",
-        //                        "project_structs_func","timestamp"]]
-        // for i in 1 ..< 101 {
-        //     do_magic(targets: i,
-        //              classTarget: 0,
-        //              classFuncTarget: 0,
-        //              structsTarget: (structsum - 105) /  i,
-        //              structsFuncTarget: 50,
-        //              classes: 0,
-        //              classesFunc: 0,
-        //              structs: 105,
-        //              structsFunc: 50)
-        //     print(i, "lol")
-        // }
         
-        // ans = ""
-        // for i in output {
-        //     ans += i.joined(separator: ",") + "\n"
-        // }
-        // lol.createFile(name: "resultsTr50",
-        //                type: "csv",
-        //                path: URL(string: "file:///home/lexar"), data: ans)
-        //     output = [["targets", "targets_class", "targets_class_func", "targets_structs",
-        //                        "targets_structs_func", "projects_class", "project_class_func", "project_structs",
-        //                        "project_structs_func","timestamp"]]
-        // for i in 1 ..< 101 {
-        //     do_magic(targets: i,
-        //              classTarget: 0,
-        //              classFuncTarget: 0,
-        //              structsTarget: (structsum - 105) /  i,
-        //              structsFuncTarget: 100,
-        //              classes: 0,
-        //              classesFunc: 0,
-        //              structs: 105,
-        //              structsFunc: 100)
-        //     print(i, "lol")
-        // }
-        
-        // ans = ""
-        // for i in output {
-        //     ans += i.joined(separator: ",") + "\n"
-        // }
-        // lol.createFile(name: "resultsTr100",
-        //                type: "csv",
-        //                path: URL(string: "file:///home/lexar"), data: ans)cd \(curr_directory)gena && 
     }
 
     mutating func do_magic(targets: Int, classTarget: Int, classFuncTarget: Int, structsTarget: Int, structsFuncTarget: Int, classes: Int, classesFunc: Int, structs: Int, structsFunc: Int) {
         do {
             try print(safeShell("(swift run SpencilTry lexar pop 1 --classes \(classes) --classes-func \(classesFunc) --structs \(structs) --structs-func \(structsFunc) --pack-count \(targets) --target-classes \(classTarget) --target-classes-func \(classFuncTarget) --target-structs \(structsTarget) --target-structs-func \(structsFuncTarget) )"))
             let anns = [targets, classTarget, classFuncTarget, structsTarget, structsFuncTarget, classes, classesFunc, structs, structsFunc].map(String.init) + parce_ans(strShit: try safeShell("(cd /tmp/gena/pop && ulimit -n 65536 && start=$(date +%s) && time swift build && finish=$(date +%s) && printf \"|$start-=$finish|\")"))
+            output.append(anns)
+            try print(safeShell("(cd /tmp/gena && rm -rf pop)"))
+        } catch {
+            print("\(error)") // handle or silence the error here
+        }
+    }
+
+    mutating func do_magic_cocoa(targets: Int, classTarget: Int, classFuncTarget: Int, structsTarget: Int, structsFuncTarget: Int, classes: Int, classesFunc: Int, structs: Int, structsFunc: Int) {
+        do {
+            try print(safeShell("(swift run SpencilTry lexar pop 2 --classes \(classes) --classes-func \(classesFunc) --structs \(structs) --structs-func \(structsFunc) --pack-count \(targets) --target-classes \(classTarget) --target-classes-func \(classFuncTarget) --target-structs \(structsTarget) --target-structs-func \(structsFuncTarget) )"))
+            let anns = [targets, classTarget, classFuncTarget, structsTarget, structsFuncTarget, classes, classesFunc, structs, structsFunc].map(String.init) + parce_ans(strShit: try safeShell("(cd /tmp/gena/pop && ulimit -n 65536 && xcodegen && pod install && start=$(date +%s) && xcodebuild && finish=$(date +%s) && printf \"|$start-=$finish|\")"))
             output.append(anns)
             try print(safeShell("(cd /tmp/gena && rm -rf pop)"))
         } catch {
