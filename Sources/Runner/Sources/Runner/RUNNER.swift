@@ -26,7 +26,7 @@ struct GenerateProject: ParsableCommand {
         let lol = FileCreator()
             
         for i in 0 ..< 100 {
-            do_magic_cocoa(targets: 0,
+            do_magic(targets: 0,
                      classTarget: 0,
                      classFuncTarget: 0,
                      structsTarget: 0,
@@ -51,7 +51,7 @@ struct GenerateProject: ParsableCommand {
 
     mutating func do_magic(targets: Int, classTarget: Int, classFuncTarget: Int, structsTarget: Int, structsFuncTarget: Int, classes: Int, classesFunc: Int, structs: Int, structsFunc: Int) {
         do {
-            try print(safeShell("(swift run SpencilTry lexar pop 1 --classes \(classes) --classes-func \(classesFunc) --structs \(structs) --structs-func \(structsFunc) --pack-count \(targets) --target-classes \(classTarget) --target-classes-func \(classFuncTarget) --target-structs \(structsTarget) --target-structs-func \(structsFuncTarget) )"))
+            try print(safeShell("(cd /Users/runner/work/gena/gena && swift run SpencilTry lexar pop 1 --classes \(classes) --classes-func \(classesFunc) --structs \(structs) --structs-func \(structsFunc) --pack-count \(targets) --target-classes \(classTarget) --target-classes-func \(classFuncTarget) --target-structs \(structsTarget) --target-structs-func \(structsFuncTarget) )"))
             let anns = [targets, classTarget, classFuncTarget, structsTarget, structsFuncTarget, classes, classesFunc, structs, structsFunc].map(String.init) + parce_ans(strShit: try safeShell("(cd /tmp/gena/pop && ulimit -n 65536 && start=$(date +%s) && time swift build && finish=$(date +%s) && printf \"|$start-=$finish|\")"))
             output.append(anns)
             try print(safeShell("(cd /tmp/gena && rm -rf pop)"))
@@ -62,7 +62,7 @@ struct GenerateProject: ParsableCommand {
 
     mutating func do_magic_cocoa(targets: Int, classTarget: Int, classFuncTarget: Int, structsTarget: Int, structsFuncTarget: Int, classes: Int, classesFunc: Int, structs: Int, structsFunc: Int) {
         do {
-            try print(safeShell("(swift run SpencilTry lexar pop 2 --classes \(classes) --classes-func \(classesFunc) --structs \(structs) --structs-func \(structsFunc) --pack-count \(targets) --target-classes \(classTarget) --target-classes-func \(classFuncTarget) --target-structs \(structsTarget) --target-structs-func \(structsFuncTarget) )"))
+            try print(safeShell("(cd /Users/runner/work/gena/gena && swift run SpencilTry lexar pop 2 --classes \(classes) --classes-func \(classesFunc) --structs \(structs) --structs-func \(structsFunc) --pack-count \(targets) --target-classes \(classTarget) --target-classes-func \(classFuncTarget) --target-structs \(structsTarget) --target-structs-func \(structsFuncTarget) )"))
             let anns = [targets, classTarget, classFuncTarget, structsTarget, structsFuncTarget, classes, classesFunc, structs, structsFunc].map(String.init) + parce_ans(strShit: try safeShell("(cd /tmp/gena/pop && ulimit -n 65536 && xcodegen && pod install && start=$(date +%s) && xcodebuild && finish=$(date +%s) && printf \"|$start-=$finish|\")"))
             output.append(anns)
             try print(safeShell("(cd /tmp/gena && rm -rf pop)"))
