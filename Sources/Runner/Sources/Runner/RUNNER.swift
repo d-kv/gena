@@ -25,16 +25,16 @@ struct GenerateProject: ParsableCommand {
     mutating func run() throws {
         let lol = FileCreator()
             
-        for i in 1 ..< 100 {
+        for i in 0 ..< 100 {
             do_magic_cocoa(targets: 0,
                      classTarget: 0,
                      classFuncTarget: 0,
                      structsTarget: 0,
                      structsFuncTarget: 0,
                      classes: i,
-                     classesFunc: 20,
+                     classesFunc: 10,
                      structs: 100 - i,
-                     structsFunc: 20)
+                     structsFunc: 10)
             print(i, "lol")
         }
         
