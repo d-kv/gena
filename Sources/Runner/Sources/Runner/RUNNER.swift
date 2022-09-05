@@ -85,7 +85,7 @@ struct GenerateProject: ParsableCommand {
         strSht.replaceSubrange(strSht.range(of: "-=")!, with: ",")
         var str = strSht.split(separator: ",").map(String.init)
         print(str)
-        let a = "\"" + String(Int(str[1])! - Int(str[0])!) + "\""
+        let a =  String(Int(str[1])! - Int(str[0])!)
         return [a]
     }
 
