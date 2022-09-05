@@ -29,11 +29,11 @@ struct GenerateProject: ParsableCommand {
             do_magic_cocoa(targets: i - 1,
                      classTarget: 0,
                      classFuncTarget: 0,
-                     structsTarget: 0,
-                     structsFuncTarget: 0,
-                     classes: i,
-                     classesFunc: 10,
-                     structs: 100 - i*1,
+                     structsTarget: countClass/Int(pow(Double(2),Double(i))),
+                     structsFuncTarget: 10,
+                     classes: 0,
+                     classesFunc: 0,
+                     structs: countClass/Int(pow(Double(2),Double(i))),
                      structsFunc: 10)
             print(i, "lol")
         }
