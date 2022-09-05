@@ -37,7 +37,6 @@ struct GenerateProject: ParsableCommand {
                                    fatherName: "",
                                    son_count: packCount)
         let lol_ = FileCreator()
-
         for i in 0 ..< classes {
             lol_.createFile(name: "Class_\(projectName)" + String(i),
                             type: "swift",

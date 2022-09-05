@@ -19,8 +19,8 @@ class PackageCreator {
 
     func podfileCreate(count: Int, name: String, targetcount: Int) throws {
         let context: [String: Any] = ["packages": returnPackNames(count: count, pack_system: 2),
-                                      "targets": returnTargetsNames(count: targetcount),
-                                      "name": name]
+            "targets": returnTargetsNames(count: targetcount),
+            "name": name]
         
         let environment = Environment(loader: FileSystemLoader(paths: ["templates/"]))
         let rendered = try environment.renderTemplate(name: "podfile_template.html", context: context)
@@ -110,8 +110,10 @@ func returnPackNames(count: Int, pack_system: Int) -> [Pack] {
 
 func returnTargetsNames(count: Int) -> [Target] {
     var result: [Target] = []
-    for i in 1 ..< count {
-        result.append(Target(name: "Target" + String(i)))
+    if count != 0{
+        for i in 1 ..< count {
+            result.append(Target(name: "Target" + String(i)))
+        }
     }
 
     return result
