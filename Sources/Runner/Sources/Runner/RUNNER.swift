@@ -62,7 +62,10 @@ struct GenerateProject: ParsableCommand {
     mutating func do_magic_cocoa(targets: Int, classTarget: Int, classFuncTarget: Int, structsTarget: Int, structsFuncTarget: Int, classes: Int, classesFunc: Int, structs: Int, structsFunc: Int) {
         do {
             try print(safeShell("(cd /Users/runner/work/gena/gena && swift run SpencilTry lexar pop 2 --classes \(classes) --classes-func \(classesFunc) --structs \(structs) --structs-func \(structsFunc) --pack-count \(targets) --target-classes \(classTarget) --target-classes-func \(classFuncTarget) --target-structs \(structsTarget) --target-structs-func \(structsFuncTarget) )"))
-            let anns = [targets, classTarget, classFuncTarget, structsTarget, structsFuncTarget, classes, classesFunc, structs, structsFunc].map(String.init) + parce_ans(strShit: try safeShell("(cd /tmp/gena/pop && ulimit -n 65536 && xcodegen && pod install && start=$(date +%s) && xcodebuild && finish=$(date +%s) && printf \"|$start-=$finish|\")"))
+            print(try safeShell("(cd /tmp/gena/pop && ulimit -n 65536 && xcodegen && pod install )"))
+            let a = try safeShell("(cd /tmp/gena/pop && start=$(date +%s) && xcodebuild && finish=$(date +%s) && printf \"|$start-=$finish|\")")
+            print(a)
+            let anns = [targets, classTarget, classFuncTarget, structsTarget, structsFuncTarget, classes, classesFunc, structs, structsFunc].map(String.init) + parce_ans(strShit: a)
             output.append(anns)
             try print(safeShell("(cd /tmp/gena && rm -rf pop)"))
         } catch {
