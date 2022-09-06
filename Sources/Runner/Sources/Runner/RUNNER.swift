@@ -24,8 +24,8 @@ struct GenerateProject: ParsableCommand {
     //
     mutating func run() throws {
         let lol = FileCreator()
-        let countClass = 1024
-        for i in 1 ..< 50 {
+        let countClass = 2000
+        for i in 1 ..< 500 {
             do_magic_cocoa(targets: i,
                            classTarget: 0,
                            classFuncTarget: 10,
