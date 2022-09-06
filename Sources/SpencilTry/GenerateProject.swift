@@ -60,14 +60,14 @@ struct GenerateProject: ParsableCommand {
                                        son_count: 0)
             if projectType == 2 {
                 let context: [String: Any] = ["name": "Target" + String(q)]
-        
+
                 let environment = Environment(loader: FileSystemLoader(paths: ["templates/"]))
                 let rendered = try environment.renderTemplate(name: "podspec_template.html", context: context)
                 let fileTemplate = rendered
                 lol_.createFile(name: "Target" + String(q),
-                               type: "podspec",
-                               path: URL(string: "file:///tmp/gena/\(projectName)/Sources/\("Target" + String(q))/"),
-                               data: fileTemplate)
+                                type: "podspec",
+                                path: URL(string: "file:///tmp/gena/\(projectName)/Sources/\("Target" + String(q))/"),
+                                data: fileTemplate)
             }
             for i in 0 ..< targetClasses {
                 lol_.createFile(name: "Class_\("Target" + String(q))" + String(i),

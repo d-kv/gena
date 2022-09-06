@@ -16,7 +16,7 @@ class ProjectCreator {
             case 2:
                 print("hereh")
                 try pc.podfileCreate(count: 0, name: name, targetcount: son_count)
-                
+
                 fm.createFile(name: "Podfile", type: "",
                               path: URL(string: "file:///tmp/gena/\(name)/"),
                               data: pc.fileTemplate)

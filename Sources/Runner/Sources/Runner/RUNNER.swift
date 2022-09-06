@@ -14,29 +14,30 @@ struct GenerateProject: ParsableCommand {
 
     var output: [[String]] = [["targets", "targets_class", "targets_class_func", "targets_structs",
                                "targets_structs_func", "projects_class", "project_class_func", "project_structs",
-                               "project_structs_func","timestamp"]]
+                               "project_structs_func", "timestamp"]]
     // снять таймстеп
     // вынести всё это в отдельную функцию
     // интервал больше( инверсия структур и классов)
     // весь код по кол-ву таргетов
-    //spec.static_framework = true (попробовать и тру и фолсе)
+    // spec.static_framework = true (попробовать и тру и фолсе)
     // добавить appspec в основную подспеку, добавить для неё appDelegate
-    // 
+    //
     mutating func run() throws {
         let lol = FileCreator()
-        for i in 1 ..< 100 {
-            do_magic_cocoa(targets: 1,
-                     classTarget: i,
-                     classFuncTarget: 10,
-                     structsTarget: 100-i,
-                     structsFuncTarget: 10,
-                     classes: 1,
-                     classesFunc: 20,
-                     structs: 1,
-                     structsFunc: 20)
+        let countClass = 1024
+        for i in 1 ..< 50 {
+            do_magic_cocoa(targets: i,
+                           classTarget: 0,
+                           classFuncTarget: 10,
+                           structsTarget: countClass / i,
+                           structsFuncTarget: 10,
+                           classes: 0,
+                           classesFunc: 20,
+                           structs: countClass - (countClass / i) * i,
+                           structsFunc: 20)
             print(i, "lol")
         }
-        
+
         var ans = ""
         for i in output {
             ans += i.joined(separator: ",") + "\n"
@@ -44,8 +45,6 @@ struct GenerateProject: ParsableCommand {
         lol.createFile(name: "results",
                        type: "csv",
                        path: URL(string: "file:///tmp/gena/"), data: ans)
-
-        
     }
 
     mutating func do_magic(targets: Int, classTarget: Int, classFuncTarget: Int, structsTarget: Int, structsFuncTarget: Int, classes: Int, classesFunc: Int, structs: Int, structsFunc: Int) {
@@ -62,7 +61,7 @@ struct GenerateProject: ParsableCommand {
     mutating func do_magic_cocoa(targets: Int, classTarget: Int, classFuncTarget: Int, structsTarget: Int, structsFuncTarget: Int, classes: Int, classesFunc: Int, structs: Int, structsFunc: Int) {
         do {
             try print(safeShell("(cd /Users/runner/work/gena/gena && swift run SpencilTry lexar pop 2 --classes \(classes) --classes-func \(classesFunc) --structs \(structs) --structs-func \(structsFunc) --pack-count \(targets) --target-classes \(classTarget) --target-classes-func \(classFuncTarget) --target-structs \(structsTarget) --target-structs-func \(structsFuncTarget) )"))
-            print(try safeShell("(cd /tmp/gena/pop && ulimit -n 65536 && xcodegen && pod install)"))// && pod install
+            print(try safeShell("(cd /tmp/gena/pop && ulimit -n 65536 && xcodegen && pod install)")) // && pod install
             let a = try safeShell("(cd /tmp/gena/pop && start=$(date +%s) && xcodebuild && finish=$(date +%s) && printf \"|$start-=$finish|\")")
             print(a)
             let anns = [targets, classTarget, classFuncTarget, structsTarget, structsFuncTarget, classes, classesFunc, structs, structsFunc].map(String.init) + parce_ans(strShit: a)
@@ -87,7 +86,7 @@ struct GenerateProject: ParsableCommand {
         strSht.replaceSubrange(strSht.range(of: "-=")!, with: ",")
         var str = strSht.split(separator: ",").map(String.init)
         print(str)
-        let a =  String(Int(str[1])! - Int(str[0])!)
+        let a = String(Int(str[1])! - Int(str[0])!)
         return [a]
     }
 
@@ -108,9 +107,7 @@ struct GenerateProject: ParsableCommand {
 
         return output
     }
-
 }
-
 
 class FileCreator {
     func createFile(name: String, type: String, path: URL?, data: String) {
